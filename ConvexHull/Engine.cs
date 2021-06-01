@@ -29,9 +29,9 @@ namespace ConvexHull
 
         public Engine(PictureBox pb)
         {
-            points = new List<Point>();
+            this.points = new List<Point>();
             this.initGraph(pb);
-            initMethods();
+            this.initMethods();
         }
 
         public void initMethods()
@@ -44,11 +44,28 @@ namespace ConvexHull
 
         public void initGraph(PictureBox T)
         {
-            display = T;
-            width = display.Width;
-            height = display.Height;
-            bitMap = new Bitmap(width, height);
-            graphics = Graphics.FromImage(bitMap);
+            this.display = T;
+            this.width = this.display.Width;
+            this.height = this.display.Height;
+            this.bitMap = new Bitmap(this.width, this.height);
+            this.graphics = Graphics.FromImage(this.bitMap);
+            this.refreshGraph();
+        }
+
+        public void runMethod(HullMethod method)
+        {
+            method.initialize(this.points);
+            method.execute();
+            List<Point> hull = method.getResult();
+            //GeometryUtils.sortVerticies(hull);
+            if (hull.Count == 0)
+                return;
+            Point p = hull[hull.Count - 1];
+            for (int i = 0; i < hull.Count; i++)
+            {
+                this.graphics.DrawLine(this.linePen, p.x, p.y, hull[i].x, hull[i].y);
+                p = hull[i];
+            }
             refreshGraph();
         }
 
@@ -59,17 +76,17 @@ namespace ConvexHull
 
         public void drawPoint(Point point)
         {
-            graphics.FillEllipse(brush, point.x, point.y, 8, 8);
-            refreshGraph();
+            this.graphics.FillEllipse(this.brush, point.x, point.y, 8, 8);
+            this.refreshGraph();
         }
         public void refreshGraph()
         {
-            display.Image = bitMap;
+            this.display.Image = this.bitMap;
         }
 
         public void clearGraph()
         {
-            graphics.Clear(Color.White);
+            this.graphics.Clear(Color.White);
             this.refreshGraph();
         }
     }

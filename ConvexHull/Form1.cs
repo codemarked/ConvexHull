@@ -20,32 +20,34 @@ namespace ConvexHull
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            engine = new Engine(pictureBox1);
+            this.engine = new Engine(this.pictureBox1);
         }
 
         private void button1_Click(object sender, EventArgs e) //Jarvis
         {
-
+            this.engine.runMethod(this.engine.jarvis);
         }
 
         private void button2_Click(object sender, EventArgs e) //Graham
         {
-
+            this.engine.runMethod(this.engine.graham);
         }
 
         private void button3_Click(object sender, EventArgs e) //Quick
         {
-
+            this.engine.runMethod(this.engine.quickHull);
         }
 
         private void button4_Click(object sender, EventArgs e) //Divide
         {
-
+            this.engine.runMethod(this.engine.divideHull);
         }
 
-        private void button5_Click(object sender, EventArgs e) //CLear
+        private void button5_Click(object sender, EventArgs e) //Clear All
         {
-
+            this.engine.points.Clear();
+            this.engine.clearGraph();
+            this.engine.refreshGraph();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -56,6 +58,15 @@ namespace ConvexHull
                 this.engine.addPoint(point);
                 this.engine.drawPoint(point);
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e) //Clear Lines
+        {
+            List<Point> points = new List<Point>(this.engine.points);
+            this.engine.clearGraph();
+            foreach (Point p in points)
+                this.engine.drawPoint(p);
+            this.engine.refreshGraph();
         }
     }
 }

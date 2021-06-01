@@ -32,19 +32,21 @@ namespace ConvexHull
             if (this.points.Count == 0) 
                 return;
             this.points.Sort();
-            foreach (var pt in points)
+            
+            foreach (Point p in points)
             {
-                while (this.hull.Count >= 2 && !GeometryUtils.check(this.hull[this.hull.Count - 2], this.hull[this.hull.Count - 1], pt))
+                while (this.hull.Count >= 2 && !GeometryUtils.check(this.hull[this.hull.Count - 2], this.hull[this.hull.Count - 1], p) /*!Sens antitrigonometric*/)
                 {
                     this.hull.RemoveAt(this.hull.Count - 1);
                 }
-                this.hull.Add(pt);
+                this.hull.Add(p);
             }
+            Point pt;
             int t = this.hull.Count + 1;
             for (int i = this.points.Count - 1; i >= 0; i--)
             {
-                Point pt = this.points[i];
-                while (this.hull.Count >= t && !GeometryUtils.check(this.hull[this.hull.Count - 2], this.hull[this.hull.Count - 1], pt))
+                pt = this.points[i];
+                while (this.hull.Count >= t && !GeometryUtils.check(this.hull[this.hull.Count - 2], this.hull[this.hull.Count - 1], pt)/*Sens antitrigonometric*/)
                 {
                     this.hull.RemoveAt(this.hull.Count - 1);
                 }
