@@ -50,13 +50,12 @@ namespace ConvexHull
             List<Point> left = new List<Point>();
             List<Point> right = new List<Point>();
 
-            for (int i = 0; i < points.Count; i++)
+            for (int i = 0; i < this.points.Count; i++)
             {
-                Point p = points[i];
+                Point p = this.points[i];
                 if (GeometryUtils.findSide(min, max, p) == 1)
                     left.Add(p);
-                else
-                if (GeometryUtils.findSide(min, max, p) == -1)
+                else if (GeometryUtils.findSide(min, max, p) == -1)
                     right.Add(p);
             }
             FindHull(left, min, max);

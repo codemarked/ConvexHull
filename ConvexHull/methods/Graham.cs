@@ -46,7 +46,7 @@ namespace ConvexHull
             for (int i = this.points.Count - 1; i >= 0; i--)
             {
                 pt = this.points[i];
-                while (this.hull.Count >= t && !GeometryUtils.check(this.hull[this.hull.Count - 2], this.hull[this.hull.Count - 1], pt)/*Sens antitrigonometric*/)
+                while (this.hull.Count >= t && !GeometryUtils.check(this.hull[this.hull.Count - 2], this.hull[this.hull.Count - 1], pt)/*!Sens antitrigonometric*/)
                 {
                     this.hull.RemoveAt(this.hull.Count - 1);
                 }

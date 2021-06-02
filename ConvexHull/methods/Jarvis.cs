@@ -31,22 +31,22 @@ namespace ConvexHull
             this.exe = true;
             if (this.points.Count == 0)
                 return;
-            Point leftPoint = this.points.Where(p => p.x == this.points.Min(min => min.x)).First(), endPoint;
+            Point p1 = this.points.Where(p => p.x == this.points.Min(min => min.x)).First(), p2;
             do
             {
-                hull.Add(leftPoint);
-                endPoint = this.points[0];
+                this.hull.Add(p1);
+                p2 = this.points[0];
                 for (int i = 1; i < this.points.Count; i++)
                 {
-                    if ((leftPoint == endPoint)
-                        || (GeometryUtils.findSide(leftPoint, endPoint, this.points[i]) == 1))
+                    if ((p1 == p2)
+                        || (GeometryUtils.findSide(p1, p2, this.points[i]) == 1)) //!coliniar
                     {
-                        endPoint = this.points[i];
+                        p2 = this.points[i];
                     }
                 }
-                leftPoint = endPoint;
+                p1 = p2;
             }
-            while (endPoint != hull[0]);
+            while (p2 != this.hull[0]);
         }
 
         public bool wasExecuted()
